@@ -1,0 +1,60 @@
+---
+title: "project.point1"
+output: pdf_document
+date: "2023-12-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Point 1
+
+
+
+```{r cars}
+n<-40
+meanExp<-1/0.2
+nsim<-1000000
+mat<- matrix(NA,nsim,n)
+meanExpData<-vector("numeric",nsim)
+sdExpData<-vector("numeric",nsim)
+varExpData<-vector("numeric",nsim)
+## obtengo mis datos
+for(i in 1:nsim){
+  mat[i,]<-rexp(40,0.2)
+  meanExpData[i]<- mean(mat[i,])
+  sdExpData[i]<-sd(mat[i,])  
+  varExpData[i]<- sum((mat[i,]-meanExpData[i])^2)/(n-1)
+}
+
+```
+
+# conclusions
+
+the mean is 1/0.2 = 5 and the variance is (1/0.2)^2 = 25
+```{r}
+## mean
+mean(meanExpData)
+##variance and sd
+mean(varExpData)
+#sd
+sqrt(mean(varExpData))
+
+```
+## Plots
+
+
+```{r pressure, echo=FALSE}
+
+
+hist(meanExpData)
+abline(v=mean(meanExp),col="red",lwd=3)
+
+hist(varExpData)
+abline(v=mean(varExpData),col="red",lwd=3)
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
